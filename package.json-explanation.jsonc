@@ -1,0 +1,44 @@
+{
+  "name": "from-scratch-angular-electron",
+  "version": "0.0.0",
+  "scripts": {
+    // runs after npm install, and installs electron's dependencies
+    "postinstall": "electron-builder install-app-deps",
+
+    //Exposes angular and electron to be able to run their commands through npm
+    //apparently this is a good practice
+    "ng": "ng",
+    "electron": "electron",
+
+    // default command during development. Runs angular in dev mode. Waits for it to be up, then compiles and runs electron passing the --serve flag to the project
+    "start": "npm-run-all -p electron:serve ng:serve",
+    "ng:serve": "ng serve -c dev", //adding -o opens the browser automatically, but it's not connected to electron, so kinda useless
+    "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && electron . --serve",
+
+    // builds electron and angular with default config
+    "electron:local": "npm run web:dev && electron .",
+    "web:dev": "npm run build",
+
+    // builds angular with production config, then builds electron app.
+    "electron:build": "npm run web:prod && electron-builder build --publish=never",
+    "web:prod": "npm run build -- -c production",
+
+    // Compiles electron with tsc (TypeScript Compiler), then builds angular
+    "build": "npm run electron:serve-tsc && ng build --base-href ./",
+    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
+
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    //...
+  },
+  "devDependencies": {
+    //...
+    "npm-run-all": "^4.1.5", //runs multiple npm commands. -p flag runs them in parallel
+    "tsc": "^2.0.4", // TypeScript Compiler, needed to compile electron
+    "typescript": "~5.6.2", // TypeScript
+    "wait-on": "^9.0.3" // to wait until angular is up before running electron on dev/hot-reload config
+  }
+}

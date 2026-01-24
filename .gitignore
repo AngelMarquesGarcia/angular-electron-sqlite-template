@@ -40,3 +40,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#angular things
+
+#electron things
+*.db
+/electron/target/
+/electron/renderer/*
+/electron/dist
+/electron/node_modules
