@@ -49,9 +49,10 @@
         },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "Application",
-          "endsPattern": "bundle generation complete"
+          "beginsPattern": "from-scratch-angular-electron",
+          "endsPattern": "Application bundle generation complete"
         },
+
       }
     },
     {

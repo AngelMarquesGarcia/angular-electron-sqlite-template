@@ -1,9 +1,9 @@
 import path from 'path';
 import { addOne } from './services/ApiService';
-import { DatabaseService } from './database/DatabaseService';
+import { DatabaseService } from './services/DatabaseService';
 import { calculateOperations } from './services/OperationService';
 import { countWordsInSentence } from './services/SentenceService';
-import { operator } from './database/types';
+import { operator } from '../common/types';
 
 const { app, BrowserWindow, ipcMain } = require('electron')
 

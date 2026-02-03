@@ -8,27 +8,29 @@
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}",
+      "webRoot": "${workspaceFolder}/angular",
       "preLaunchTask": "npm: ng:serve"
     },
     {
       "name": "Electron Main",
       "program": "${workspaceFolder}/electron/target/main.js",
+      "args": ["--serve"],
       "request": "launch",
       "runtimeExecutable": "electron",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "type": "node",
-      "preLaunchTask": "npm: electron:serve-tsc"
+      "preLaunchTask": "npm: build:electron"
     },
     {
       "name": "Attach to Electron Renderer",
       "type": "chrome",
       "request": "attach",
       "port": 9223,
-      "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "npm: ng:serve"
+      "webRoot": "${workspaceFolder}/angular",
+      "preLaunchTask": "npm: ng:serve",
+      "postDebugTask": "stop angular"
     }
   ],
   "compounds": [

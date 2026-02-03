@@ -1,4 +1,4 @@
-import { operation, operator, sentence } from "./types";
+import { operation, operator, sentence } from "../../common/types";
 const { app } = require('electron');
 const path = require('path');
 
@@ -10,7 +10,7 @@ export class DatabaseService {
 
   //needs npm install better-sqlite3
   private db: InstanceType<typeof Database>;
-  private dbPath = path.join(app.getPath('userData'), 'foobar.db');
+  private dbPath = path.join(app.getPath('userData'), 'electron_database.db');
 
   constructor() {
     this.db = new Database(this.dbPath);

@@ -4,14 +4,15 @@
   "configurations": [
     {
       "name": "Electron Serve",
-      "program": "${workspaceFolder}/target/main.js",
+      "program": "${workspaceFolder}/target/electron/main.js",
       "request": "launch",
       "runtimeExecutable": "electron",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "type": "node",
-      "preLaunchTask": "npm: electron:serve-tsc"
+      "preLaunchTask": "npm: electron:serve-tsc",
+      "args":["--serve"]
     },
     {
       "name": "Electron Local",

@@ -1,5 +1,5 @@
-import { operation, operator } from '../database/types';
-import { DatabaseService } from './../database/DatabaseService';
+import { operation, operator } from '../../common/types';
+import { DatabaseService } from './DatabaseService';
 const databaseService = new DatabaseService();
 
 export function calculateOperations(num1:number, num2:number, operator:operator) {

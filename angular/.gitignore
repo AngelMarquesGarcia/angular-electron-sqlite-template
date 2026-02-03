@@ -1,12 +1,12 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
-/dist
-/tmp
-/out-tsc
+# Angular
+/dist/
 /bazel-out
+/integration/bazel/bazel-*
+*.bazel
+/bazel-*
+.bazelignore
 
-# Node
+# Angular dependencies
 /node_modules
 npm-debug.log
 yarn-error.log
@@ -41,13 +41,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#angular things
-
-#electron things
-*.db
-
-##other
-**/target
-**/renderer/*
-**/dist
-**/node_modules
+# Environment
+.env
+.env.local
+.env.*.local

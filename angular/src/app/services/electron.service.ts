@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
-import { api, ops, sents } from '../../../electron/database/interfaces';
+import { api, ops, sents } from '../../../../common/interfaces';
 
 @Injectable({
   providedIn: 'root'
