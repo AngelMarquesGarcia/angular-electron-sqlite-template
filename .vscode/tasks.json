@@ -40,7 +40,7 @@
     },
     {
       "type": "npm",
-      "script": "ng:serve",
+      "script": "predebug:angular",
       "isBackground": true,
       "problemMatcher": {
         "owner": "angular",

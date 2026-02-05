@@ -11,12 +11,12 @@
         "<node_internals>/**"
       ],
       "type": "node",
-      "preLaunchTask": "npm: electron:serve-tsc",
+      "preLaunchTask": "npm: build",
       "args":["--serve"]
     },
     {
       "name": "Electron Local",
-      "program": "${workspaceFolder}/target/main.js",
+      "program": "${workspaceFolder}/target/electron/main.js",
       "runtimeArgs": ["--remote-debugging-port=9223"],
       "request": "launch",
       "runtimeExecutable": "electron",
@@ -24,7 +24,7 @@
         "<node_internals>/**"
       ],
       "type": "node",
-      "preLaunchTask": "npm: electron:serve-tsc",
+      "preLaunchTask": "npm: build",
       "args":["--local"]
     }
   ]

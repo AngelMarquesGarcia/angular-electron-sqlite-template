@@ -3,22 +3,22 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "ng serve electron",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9223,
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "npm: start",
+      "postDebugTask": "stop angular"
+    },
+    {
       "name": "ng serve chrome",
       "port": 9222,
       "request": "launch",
       "type": "chrome",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "npm: ng:serve",
-      "postDebugTask": "stop angular"
-    },
-    {
-      "name": "ng serve electron",
-      "type": "chrome",
-      "request": "attach",
-      "port": 9223,
-      "webRoot": "${workspaceFolder}",
-      "preLaunchTask": "npm: ng:serve",
+      "preLaunchTask": "npm: start",
       "postDebugTask": "stop angular"
     }
   ]

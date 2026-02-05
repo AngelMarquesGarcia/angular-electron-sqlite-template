@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run ng:serve",
-    "ng:serve": "ng serve -c development",
-    "build": "ng build --base-href ./ --output-path=./target",
+    "start": "ng serve",
+    "start:dev":"ng serve -c development",
+
+    "build": "ng build --base-href ./",
     "build:dev": "npm run build -- -c development",
     "build:prod": "npm run build -- -c production",
-    "watch": "ng build --watch --configuration development",
+
     "test": "ng test"
   },
   "private": true,

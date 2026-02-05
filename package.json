@@ -2,20 +2,31 @@
   "name": "from-scratch-angular-electron",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "electron": "electron",
-    "start": "npm-run-all -p electron:serve ng:serve",
-    "ng:serve": "cd angular && ng serve -c development",
+
     "electron:serve": "wait-on tcp:4200 && npm run build:electron && electron ./electron --serve",
-    "electron:local": "npm run build && electron ./electron",
-    "build": "npm run build:electron && npm run build:angular",
-    "build:angular": "cd angular && ng build --base-href ./ --output-path=../electron/renderer",
-    "build:angular-for-package": "cd angular && ng build --base-href ./ --output-path=../electron/target/electron/renderer",
-    "build:electron": "cd electron && npm run electron:serve-tsc",
+
+
+    "start":"npm run compile:electron && npm-run-all start:angular start:electron-serve",
+    "start:local":"npm run compile && npm --prefix electron run start:local",
+
+    "compile": "npm run compile:angular && npm run compile:electron",
+    "compile:angular":"npm --prefix angular run build:dev",
+    "compile:electron":"npm --prefix electron run build",
+
+    "start:angular":"npm --prefix angular run start",
+    "start:electron-serve":"wait-on tcp:4200 && npm --prefix electron run start:serve",
+    "start:electron-local":"npm run compile:angular && npm --prefix electron run start:local",
+
+    "predebug":"npm predebug:angular && npm predebug:electron",
+    "predebug:angular":"npm --prefix angular run start:dev",
+    "predebug:electron":"npm --prefix electron run build",
+
     "forge-start": "cd electron && electron-forge start",
     "forge-package": "cd electron && electron-forge package",
     "forge-make": "cd electron && electron-forge make",
+
     "compile-and-make": "npm run build:electron && npm run build:angular-for-package && npm run forge-make ",
+
     "rebuild-native": "@electron/rebuild -f -w better-sqlite3"
   },
   "private": true,

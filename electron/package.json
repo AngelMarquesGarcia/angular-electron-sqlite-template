@@ -9,12 +9,9 @@
   "scripts": {
     "start": "electron .",
     "start:local": "electron . --local",
-    "forge-start": "electron-forge start",
-    "forge-package": "electron-forge package",
-    "forge-make": "electron-forge make",
-    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
-    "rebuild-native": "npx @electron/rebuild -f -w better-sqlite3",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:serve": "electron . --serve",
+
+    "build": "tsc -p tsconfig.serve.json"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",

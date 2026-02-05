@@ -40,7 +40,7 @@
     },
     {
       "type": "npm",
-      "script": "ng:serve",
+      "script": "start",
       "isBackground": true,
       "problemMatcher": {
         "owner": "angular",
@@ -49,8 +49,8 @@
         },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "from-scratch-angular-electron",
-          "endsPattern": "Application bundle generation complete"
+          "beginsPattern": "Application",
+          "endsPattern": "bundle generation complete"
         },
 
       }
