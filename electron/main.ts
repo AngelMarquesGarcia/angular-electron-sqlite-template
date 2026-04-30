@@ -23,7 +23,7 @@ const createWindow = () => {
 
   const isLocal = process.argv.includes('--local');
   const startURL = app.isPackaged || isLocal
-    ? `file://${path.join(__dirname, '../../renderer/browser/index.html')}`
+    ? `file://${path.join(__dirname, '../renderer/browser/index.html')}`
     : 'http://localhost:4200';
 
   win.loadURL(startURL);

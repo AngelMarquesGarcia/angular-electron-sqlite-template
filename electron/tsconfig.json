@@ -1,24 +1,12 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "noEmit": true,
+    "moduleResolution": "node16",
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "node16",
     "target": "es2015",
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "es2017",
-      "es2016",
-      "es2015",
-      "dom"
-    ],
-    "rootDir": "..",
-    "outDir": "../dist/main"
+    "types": ["node"],
+    "lib": ["es2017"]
   },
   "include": [
     "main.ts",
@@ -29,5 +17,5 @@
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
-  ],
+  ]
 }

@@ -1,9 +1,9 @@
 {
   "name": "from-scratch-angular-electron",
   "version": "0.0.0",
-  "main": "dist/main/electron/main.js",
+  "main": "dist/main/main.js",
   "scripts": {
-    "start": "npm run compile:electron && npm-run-all start:angular start:electron-serve",
+    "start": "npm run compile:electron && run-p start:angular start:electron-serve",
     "start:local": "npm run compile && npm --prefix electron run start:local",
     "compile": "npm run compile:angular && npm run compile:electron",
     "compile:angular": "npm --prefix angular run build:dev",
