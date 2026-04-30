@@ -2,7 +2,6 @@
   "name": "from-scratch-angular-electron",
   "version": "0.0.0",
   "scripts": {
-    "electron:serve": "wait-on tcp:4200 && npm run build:electron && electron ./electron --serve",
     "start": "npm run compile:electron && npm-run-all start:angular start:electron-serve",
     "start:local": "npm run compile && npm --prefix electron run start:local",
     "compile": "npm run compile:angular && npm run compile:electron",
@@ -17,18 +16,14 @@
     "forge-start": "cd electron && electron-forge start",
     "forge-package": "cd electron && electron-forge package",
     "forge-make": "cd electron && electron-forge make",
-
     "compile-and-make": "npm run compile && npm run forge-make"
   },
   "private": true,
   "devDependencies": {
-    "@electron-forge/cli": "^7.11.1",
     "electron": "^40.2.1",
+    "electron-builder": "^26.7.0",
     "kill-port": "^2.0.1",
     "npm-run-all": "^4.1.5",
     "wait-on": "^9.0.3"
-  },
-  "dependencies": {
-    "better-sqlite3": "^12.6.2"
   }
 }
