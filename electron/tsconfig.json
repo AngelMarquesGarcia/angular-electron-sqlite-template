@@ -17,11 +17,14 @@
       "es2015",
       "dom"
     ],
-    "outDir": "./target"
+    "rootDir": "..",
+    "outDir": "../dist/main"
   },
-  "files": [
+  "include": [
     "main.ts",
-    "preload.ts"
+    "preload.ts",
+    "ipc/**/*.ts",
+    "services/**/*.ts"
   ],
   "exclude": [
     "node_modules",

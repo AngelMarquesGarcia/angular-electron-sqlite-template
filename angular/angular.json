@@ -38,7 +38,7 @@
           },
           "configurations": {
             "development": {
-              "outputPath": "../electron/target/electron/renderer",
+              "outputPath": "../dist/renderer",
               "optimization": false,
               "outputHashing": "none",
               "sourceMap": true,
@@ -53,7 +53,7 @@
               ]
             },
             "production": {
-              "outputPath": "../electron/target/electron/renderer",
+              "outputPath": "../dist/renderer",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,

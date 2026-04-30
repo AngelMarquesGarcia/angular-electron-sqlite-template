@@ -1,8 +1,6 @@
-import { operation, operator, sentence } from "../../common/types";
+import { operation, operator, sentence } from "../../shared/types";
 const { app } = require('electron');
 const path = require('path');
-
-//import Database from 'better-sqlite3';
 
 import Database from 'better-sqlite3';
 

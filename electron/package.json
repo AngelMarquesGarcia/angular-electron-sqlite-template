@@ -5,12 +5,12 @@
   "license": "ISC",
   "author": "Ángel Marqués",
   "type": "commonjs",
-  "main": "./target/electron/main.js",
+  "main": "../dist/main/electron/main.js",
   "scripts": {
     "start": "electron .",
     "start:local": "electron . --local",
     "start:serve": "electron . --serve",
-    "build": "tsc -p tsconfig.serve.json"
+    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.2",

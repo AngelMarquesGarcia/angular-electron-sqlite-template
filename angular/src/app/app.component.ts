@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { ElectronService } from './services/electron.service';
+import { ElectronService } from './core/services/electron.service';
 
 @Component({
   selector: 'app-root',

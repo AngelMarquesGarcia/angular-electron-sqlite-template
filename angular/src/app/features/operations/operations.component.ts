@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ElectronService } from '../services/electron.service';
+import { ElectronService } from '../../core/services/electron.service';
 
 @Component({
   selector: 'app-operations',

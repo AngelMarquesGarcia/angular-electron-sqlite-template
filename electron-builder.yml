@@ -4,11 +4,11 @@ productName: from-scratch-electron-angular
 asar: true
 
 directories:
-  app: electron
-  output: dist/electron-builds
+  output: dist/build
 
 files:
-  - target/**
+  - dist/main/**
+  - dist/renderer/**
   - package.json
   - node_modules/**
 

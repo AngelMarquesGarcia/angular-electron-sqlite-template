@@ -48,6 +48,5 @@ Thumbs.db
 
 ##other
 **/target
-**/renderer/*
-**/dist
 **/node_modules
+dist/
