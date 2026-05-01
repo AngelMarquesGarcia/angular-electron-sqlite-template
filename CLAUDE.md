@@ -218,7 +218,7 @@ Config compartida: `singleQuote`, `trailingComma: all`, `printWidth: 100`, `endO
 Módulo nativo que requiere ser recompilado para la versión de Node embebida en Electron. Tras `npm install` en la raíz, ejecutar:
 
 ```bash
-npx @electron/rebuild --version 40.0.0 --force
+npx @electron/rebuild --force
 ```
 
 ---
@@ -277,10 +277,34 @@ npx @electron/rebuild --version 40.0.0 --force
 
 ---
 
+### 01/05/2026
+
+**Calidad de código:**
+
+- Corregidas las violaciones de ESLint existentes; las no corregibles suprimidas puntualmente con `eslint-disable`
+- Corregidos naming y tipado en `shared/`: interfaces renombradas a PascalCase (`Api`, `Ops`, `Sents`), parámetro `op` tipado como `Operator` en lugar de `string`
+- Corregidas configuraciones de debug de VSCode: rutas a los binarios de Electron actualizadas a `dist/main/main.js` (antes apuntaban a la ruta antigua `electron/target/electron/`)
+
+**Testing:**
+
+- Escritos los primeros tests de Electron con Jest: `electron/__tests__/services/api.service.test.ts` (básico, sin mocks) y `electron/__tests__/services/operations.service.test.ts` (con mock de `DatabaseService` vía `jest.mock()`)
+- Escritos tests E2E con Playwright: `e2e/tests/smoke.spec.ts` (verifica título, `app-root`, y navegación principal) y `e2e/tests/basic-interaction.spec.ts` (navega a las features)
+- Confirmado el correcto funcionamiento de Jest y Playwright; corregidos errores de configuración detectados durante la puesta en marcha
+
+**CI/CD:**
+
+- Implementados tres workflows de GitHub Actions:
+  - `on_commit_lint_test_update_patch.yml` — tests unitarios (Angular + Electron) en cada push a ramas no-main
+  - `on_pr_e2e_update_minor.yml` — E2E + ESLint + bump minor en cada PR a main
+  - `on_push_main_from_feature_build.yml` — compilación, empaquetado Windows (electron-builder) y publicación de GitHub Release en cada push a main
+- Implementado pre-commit hook con Husky: ejecuta tests unitarios y hace bump de patch en cada commit local; el bump queda incluido en el propio commit, sin commits extra de "chore: bump version"
+
+**Documentación:**
+
+- Redactado `README.md` con estructura del proyecto, stack tecnológico, testing, QA, workflows, scripts, debugging e IPC
+
+---
+
 ## Pasos siguientes
 
-- **Corregir violaciones ESLint existentes** — el linter ya identifica 15 errores en el código actual (prefer-inject, no-explicit-any, prefer-const, require-style imports, unused vars)
-- **Test básico Jest en Electron** — escribir al menos un test unitario de ejemplo para verificar que la configuración de Jest funciona end-to-end
-- **Smoke test Playwright** — escribir un test E2E mínimo que arranque la app y verifique que la ventana carga correctamente
-- **README.md** — documentación orientada al usuario final del template (CLAUDE.md es documentación interna)
-- **CI/CD** — pipeline de GitHub Actions que ejecute `npm test` y `npm run lint` en cada push/PR, convirtiendo el tooling en un guardia automático
+- **Confirmar el correcto funcionamiento de los workflows** — verificar que los tres workflows de GitHub Actions se ejecutan y completan correctamente en el repositorio remoto
