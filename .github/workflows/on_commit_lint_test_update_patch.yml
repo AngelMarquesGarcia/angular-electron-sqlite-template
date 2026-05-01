@@ -36,6 +36,3 @@ jobs:
 
       - name: Run Electron unit tests
         run: npm --prefix electron run test
-
-      - name: Bump patch version
-        run: npm version patch --no-git-tag-version

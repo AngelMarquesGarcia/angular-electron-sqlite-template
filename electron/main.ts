@@ -15,16 +15,17 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+      preload: path.join(__dirname, 'preload.js'),
+    },
   });
 
   db.createTables();
 
   const isLocal = process.argv.includes('--local');
-  const startURL = app.isPackaged || isLocal
-    ? `file://${path.join(__dirname, '../renderer/browser/index.html')}`
-    : 'http://localhost:4200';
+  const startURL =
+    app.isPackaged || isLocal
+      ? `file://${path.join(__dirname, '../renderer/browser/index.html')}`
+      : 'http://localhost:4200';
 
   win.loadURL(startURL);
 };

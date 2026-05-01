@@ -4,7 +4,7 @@
   "configurations": [
     {
       "name": "Electron Serve",
-      "program": "${workspaceFolder}/target/electron/main.js",
+      "program": "${workspaceFolder}/../dist/main/main.js",
       "request": "launch",
       "runtimeExecutable": "electron",
       "skipFiles": [
@@ -16,7 +16,7 @@
     },
     {
       "name": "Electron Local",
-      "program": "${workspaceFolder}/target/electron/main.js",
+      "program": "${workspaceFolder}/../dist/main/main.js",
       "runtimeArgs": ["--remote-debugging-port=9223"],
       "request": "launch",
       "runtimeExecutable": "electron",

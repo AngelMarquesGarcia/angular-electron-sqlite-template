@@ -4,7 +4,7 @@
   "configurations": [
     {
       "name": "Electron Main",
-      "program": "${workspaceFolder}/electron/target/electron/main.js",
+      "program": "${workspaceFolder}/dist/main/main.js",
       "args": ["--serve"],
       "request": "launch",
       "runtimeExecutable": "electron",

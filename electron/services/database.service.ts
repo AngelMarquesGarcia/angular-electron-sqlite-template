@@ -1,11 +1,10 @@
-import { operation, operator, sentence } from "../../shared/types";
-const { app } = require('electron');
-const path = require('path');
+import { Operation, Operator, Sentence } from '../../shared/types';
+import { app } from 'electron';
+import path from 'path';
 
 import Database from 'better-sqlite3';
 
 export class DatabaseService {
-
   //needs npm install better-sqlite3
   private db: InstanceType<typeof Database>;
   private dbPath = path.join(app.getPath('userData'), 'electron_database.db');
@@ -15,12 +14,14 @@ export class DatabaseService {
   }
 
   private tables = {
-    ops:'operations',
-    sent:'sentences'
-  }
+    ops: 'operations',
+    sent: 'sentences',
+  };
 
   createTables(): void {
-    this.db.prepare(`
+    this.db
+      .prepare(
+        `
       CREATE TABLE IF NOT EXISTS ${this.tables.ops} (
       number1 INTEGER NOT NULL,
       number2 INTEGER NOT NULL,
@@ -29,50 +30,60 @@ export class DatabaseService {
 
       PRIMARY KEY (number1, number2, operator)
       )
-    `).run();
+    `,
+      )
+      .run();
 
-    this.db.prepare(`
+    this.db
+      .prepare(
+        `
       CREATE TABLE IF NOT EXISTS ${this.tables.sent} (
       sentence TEXT PRIMARY KEY,
       words INTEGER NOT NULL CHECK (words>=0),
       chars INTEGER NOT NULL CHECK (chars>=0)
       )
-    `).run();
+    `,
+      )
+      .run();
   }
 
-  insertOperation(op:operation): number | bigint {
-    const stmt = this.db.prepare(`INSERT INTO ${this.tables.ops} VALUES ($number1, $number2, $operator, $result)`);
+  insertOperation(op: Operation): number | bigint {
+    const stmt = this.db.prepare(
+      `INSERT INTO ${this.tables.ops} VALUES ($number1, $number2, $operator, $result)`,
+    );
     const stmtInfo = stmt.run(op);
     return stmtInfo.lastInsertRowid;
   }
 
-  insertSentence(sent:sentence): number | bigint {
-    const stmt = this.db.prepare(`INSERT INTO ${this.tables.sent} VALUES ($sentence, $words, $chars)`);
+  insertSentence(sent: Sentence): number | bigint {
+    const stmt = this.db.prepare(
+      `INSERT INTO ${this.tables.sent} VALUES ($sentence, $words, $chars)`,
+    );
     const stmtInfo = stmt.run(sent);
     return stmtInfo.lastInsertRowid;
   }
 
-  getOperationByOperator(operator:operator): operation[] {
-    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.ops} WHERE operator = ?`)
-    return stmt.all(operator) as operation[]
+  getOperationByOperator(operator: Operator): Operation[] {
+    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.ops} WHERE operator = ?`);
+    return stmt.all(operator) as Operation[];
   }
 
-  getSentenceByWords(words:number) {
-    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.sent} WHERE words = ?`)
-    return stmt.all(words)
+  getSentenceByWords(words: number) {
+    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.sent} WHERE words = ?`);
+    return stmt.all(words);
   }
 
   getAllOperations() {
-    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.ops}`)
-    return stmt.all()
+    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.ops}`);
+    return stmt.all();
   }
 
-  getAllSentences(words:number) {
-    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.sent}`)
-    return stmt.all(words)
+  getAllSentences() {
+    const stmt = this.db.prepare(`SELECT * FROM ${this.tables.sent}`);
+    return stmt.all();
   }
 
-  patchOperation(op:operation): boolean {
+  patchOperation(op: Operation): boolean {
     const stmt = this.db.prepare(`
       UPDATE ${this.tables.ops}
       SET
@@ -81,12 +92,12 @@ export class DatabaseService {
         operator = :operator,
         result = :result
       WHERE number1 = :number1 AND number2 = :number2 AND operator = :operator
-    `)
-    const stmtInfo = stmt.run(op)
+    `);
+    const stmtInfo = stmt.run(op);
     return stmtInfo.changes > 0;
   }
 
-  patchSentence(sent:sentence): boolean {
+  patchSentence(sent: Sentence): boolean {
     const stmt = this.db.prepare(`
       UPDATE ${this.tables.sent}
       SET
@@ -94,27 +105,26 @@ export class DatabaseService {
         words = :words,
         chars = :chars
       WHERE sentence = :sentence
-    `)
-    const stmtInfo = stmt.run(sent)
+    `);
+    const stmtInfo = stmt.run(sent);
     return stmtInfo.changes > 0;
   }
 
-  deleteOperation(op:operation): boolean {
+  deleteOperation(op: Operation): boolean {
     const stmt = this.db.prepare(`
       DELETE FROM ${this.tables.ops}
       WHERE number1 = :number1 AND number2 = :number2 AND operator = :operator
-    `)
+    `);
     const stmtInfo = stmt.run(op);
-    return stmtInfo.changes == 1
+    return stmtInfo.changes == 1;
   }
 
-  deleteSentence(sent:sentence): boolean {
+  deleteSentence(sent: Sentence): boolean {
     const stmt = this.db.prepare(`
       DELETE FROM ${this.tables.sent}
       WHERE sentence = :sentence
-    `)
+    `);
     const stmtInfo = stmt.run(sent.sentence);
-    return stmtInfo.changes == 1
+    return stmtInfo.changes == 1;
   }
-
 }

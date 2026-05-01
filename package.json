@@ -1,6 +1,6 @@
 {
   "name": "from-scratch-angular-electron",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/main/main.js",
   "scripts": {
     "start": "npm run compile:electron && run-p start:angular start:electron-serve",
@@ -11,10 +11,10 @@
     "start:angular": "npm --prefix angular run start",
     "start:electron-serve": "wait-on tcp:4200 && npm --prefix electron run start:serve",
     "start:electron-local": "npm run compile:angular && npm --prefix electron run start:local",
-    "predebug": "npm predebug:angular && npm predebug:electron",
+    "predebug": "npm run predebug:angular && npm run predebug:electron",
     "predebug:angular": "npm --prefix angular run start:dev",
     "predebug:electron": "npm --prefix electron run build",
-    "compile-and-make": "npm run compile && npm run forge-make",
+    "compile-and-build": "npm run compile && electron-builder",
     "test": "npm --prefix angular run test:run && npm --prefix electron run test",
     "test:all": "npm --prefix angular run test:run && npm --prefix electron run test && npm run e2e",
     "e2e": "playwright test",
@@ -23,6 +23,7 @@
     "format": "prettier --write \"angular/src/**/*.{ts,html,scss}\" \"electron/**/*.ts\" \"shared/**/*.ts\"",
     "format:check": "prettier --check \"angular/src/**/*.{ts,html,scss}\" \"electron/**/*.ts\" \"shared/**/*.ts\"",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "lint:angular": "eslint angular/src",
     "lint:electron": "eslint electron",
     "prepare": "husky"
