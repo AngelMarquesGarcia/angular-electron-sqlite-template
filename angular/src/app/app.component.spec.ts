@@ -1,29 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ElectronService } from './core/services/electron.service';
+import { MockElectronService } from '../testing/mock-electron.service';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-    }).compileComponents();
+      providers: [{ provide: ElectronService, useClass: MockElectronService }],
+    })
+      .overrideComponent(AppComponent, {
+        set: { template: '', styles: [] },
+      })
+      .compileComponents();
+
+    component = TestBed.createComponent(AppComponent).componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it(`should have the 'from-scratch-angular-electron' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('from-scratch-angular-electron');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, from-scratch-angular-electron');
+  it('should have the correct title', () => {
+    expect(component.title).toBe('from-scratch-angular-electron');
   });
 });

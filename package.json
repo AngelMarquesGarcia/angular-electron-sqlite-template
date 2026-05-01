@@ -1,6 +1,6 @@
 {
   "name": "from-scratch-angular-electron",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/main/main.js",
   "scripts": {
     "start": "npm run compile:electron && run-p start:angular start:electron-serve",
@@ -14,7 +14,18 @@
     "predebug": "npm predebug:angular && npm predebug:electron",
     "predebug:angular": "npm --prefix angular run start:dev",
     "predebug:electron": "npm --prefix electron run build",
-    "compile-and-make": "npm run compile && npm run forge-make"
+    "compile-and-make": "npm run compile && npm run forge-make",
+    "test": "npm --prefix angular run test:run && npm --prefix electron run test",
+    "test:all": "npm --prefix angular run test:run && npm --prefix electron run test && npm run e2e",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:debug": "playwright test --debug",
+    "format": "prettier --write \"angular/src/**/*.{ts,html,scss}\" \"electron/**/*.ts\" \"shared/**/*.ts\"",
+    "format:check": "prettier --check \"angular/src/**/*.{ts,html,scss}\" \"electron/**/*.ts\" \"shared/**/*.ts\"",
+    "lint": "eslint .",
+    "lint:angular": "eslint angular/src",
+    "lint:electron": "eslint electron",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -22,10 +33,17 @@
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.4",
+    "@playwright/test": "^1.59.1",
+    "angular-eslint": "^21.3.1",
     "electron": "^40.2.1",
     "electron-builder": "^26.7.0",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
     "kill-port": "^2.0.1",
     "npm-run-all": "^4.1.5",
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.59.1",
     "wait-on": "^9.0.3"
   }
 }
