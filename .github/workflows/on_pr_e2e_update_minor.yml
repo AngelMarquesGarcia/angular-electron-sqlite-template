@@ -43,6 +43,8 @@ jobs:
         run: npm version minor --no-git-tag-version
 
       - name: Commit version bump
+        env:
+          HUSKY: 0
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
