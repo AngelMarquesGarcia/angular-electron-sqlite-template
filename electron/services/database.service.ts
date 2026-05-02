@@ -5,7 +5,8 @@ import path from 'path';
 import Database from 'better-sqlite3';
 
 export class DatabaseService {
-  //needs npm install better-sqlite3
+  private readonly SCHEMA_VERSION = 1;
+
   private db: InstanceType<typeof Database>;
   private dbPath = path.join(app.getPath('userData'), 'electron_database.db');
 
@@ -18,7 +19,7 @@ export class DatabaseService {
     sent: 'sentences',
   };
 
-  createTables(): void {
+  migrate(): void {
     this.db
       .prepare(
         `
@@ -45,6 +46,27 @@ export class DatabaseService {
     `,
       )
       .run();
+
+    this.db
+      .prepare(
+        `
+      CREATE TABLE IF NOT EXISTS
+      meta (key TEXT PRIMARY KEY, value TEXT)
+      `,
+      )
+      .run();
+
+    const row = this.db
+      .prepare(`SELECT value FROM meta WHERE key = 'schema_version'`)
+      .get() as { value: string } | undefined;
+    const current = row ? parseInt(row.value) : 0;
+
+    if (current < 1) {
+      this.db
+        .prepare(`INSERT OR IGNORE INTO meta (key, value) VALUES ('schema_version', '1')`)
+        .run();
+    }
+    // if (current < this.SCHEMA_VERSION) { /* future migrations */ }
   }
 
   insertOperation(op: Operation): number | bigint {
