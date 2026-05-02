@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Install Angular dependencies
-        run: npm ci --prefix angular
+        run: npm install --prefix angular
 
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
