@@ -1,4 +1,4 @@
-name: E2E tests + minor bump
+name: Run E2E tests and bump minor version on pr
 
 on:
   pull_request:

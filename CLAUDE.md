@@ -305,6 +305,14 @@ npx @electron/rebuild --force
 
 ---
 
+### 02/05/2026
+
+**CI/CD:**
+
+- Verificando el correcto funcionamiento del workflow `on_commit_lint_test` se ha encontrado un problema: al hacer `npm ci --prefix angular` el workflow falla porque se ejecuta en una máquina Linux. El error lo causa Vitest, que tiene dependencias de plataforma distintas en Linux y en Windows (`@rollup/rollup-linux-x64-gnu` y sus transitivas `@emnapi/core`, `@emnapi/runtime`), y no hay manera de incluirlas todas en el lock file generando desde Windows. El error se ha resuelto usando `npm install` en lugar de `npm ci` en ese paso del workflow, aunque esto elimina la verificación estricta de consistencia del lock file que ofrecía `npm ci`.
+
+---
+
 ## Pasos siguientes
 
 - **Confirmar el correcto funcionamiento de los workflows** — verificar que los tres workflows de GitHub Actions se ejecutan y completan correctamente en el repositorio remoto

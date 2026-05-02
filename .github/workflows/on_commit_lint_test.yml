@@ -1,4 +1,4 @@
-name: Unit tests + patch bump
+name: Run Unit tests on commit
 
 on:
   push:

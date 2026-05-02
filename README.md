@@ -515,3 +515,23 @@ CI does this automatically on every push to `main` and attaches the output to a 
 - **Tests are co-located in Angular, mirrored in Electron.** Don't mix conventions — it's the established split per ecosystem.
 - **`@testing-library/angular` is currently unused** but kept in devDependencies for future test utilities.
 - **The IPC `Channels` constants are the only place channel names are typed as strings.** Always import from `electron/ipc/channels.ts` instead of repeating the literal anywhere.
+
+---
+
+## Known issues
+
+### `npm ci --prefix angular` fails in Linux CI
+
+**Symptom:** The `on_commit_lint_test` workflow fails with:
+
+```
+npm error `npm ci` can only install packages when your package.json and package-lock.json are in sync.
+npm error Missing: @emnapi/core@1.10.0 from lock file
+npm error Missing: @emnapi/runtime@1.10.0 from lock file
+```
+
+**Cause:** Vitest uses Rollup internally, and Rollup ships platform-specific native binaries as optional dependencies (`@rollup/rollup-win32-x64-msvc` on Windows, `@rollup/rollup-linux-x64-gnu` on Linux). The Linux binary has its own transitive dependencies (`@emnapi/core`, `@emnapi/runtime`) that are absent from a lock file generated on Windows. `npm ci` is strict — it requires every package that will be installed to already be present in the lock file, so it hard-fails on Linux. There is no npm flag to generate a cross-platform lock file from Windows, and regenerating locally produces no changes because the Windows resolution is self-consistent.
+
+**Solution:** The `on_commit_lint_test` workflow uses `npm install` instead of `npm ci` for the Angular step. `npm install` resolves and fetches missing platform packages on the fly without requiring them to be pre-registered in the lock file.
+
+If the project is ever developed on Linux, the lock file generated there would naturally include the Linux platform packages, and `npm ci` could be used safely on both platforms.
