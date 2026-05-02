@@ -310,9 +310,14 @@ npx @electron/rebuild --force
 **CI/CD:**
 
 - Verificando el correcto funcionamiento de los workflows se ha encontrado un problema: al hacer `npm ci --prefix angular` los workflows fallan porque se ejecutan en una máquina Linux. El error lo causa Vitest, que tiene dependencias de plataforma distintas en Linux y en Windows (`@rollup/rollup-linux-x64-gnu` y sus transitivas `@emnapi/core`, `@emnapi/runtime`), y no hay manera de incluirlas todas en el lock file generando desde Windows. El error se ha resuelto usando `npm install` en lugar de `npm ci` en ese paso en los tres workflows, aunque esto elimina la verificación estricta de consistencia del lock file que ofrecía `npm ci`.
+- Tras la corrección, confirmado el correcto funcionamiento de los tres workflows en el repositorio remoto.
+
+**Base de datos:**
+
+- Añadida lógica de migraciones en `DatabaseService`: `createTables()` renombrado a `migrate()`, que ahora lee la versión actual del schema desde la tabla `meta` y aplica únicamente los bloques de migración pendientes. La estructura queda lista para incorporar migraciones futuras sin tocar el código existente.
 
 ---
 
 ## Pasos siguientes
 
-- **Confirmar el correcto funcionamiento de los workflows** — verificar que los tres workflows de GitHub Actions se ejecutan y completan correctamente en el repositorio remoto
+El template está completo. El siguiente paso natural es **hacer un fork del repositorio y utilizarlo como base para un proyecto real**.

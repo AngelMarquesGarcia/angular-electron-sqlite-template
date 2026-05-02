@@ -518,6 +518,20 @@ CI does this automatically on every push to `main` and attaches the output to a 
 
 ---
 
+## Future concerns
+
+Things that are not a problem today but are worth keeping in mind as the project grows.
+
+### Multiple windows
+
+The app currently creates a single `BrowserWindow` inline in `main.ts`. If a second window is ever needed (a settings panel, a tray popup, a splash screen, etc.), `createWindow` should be extracted into an `electron/window/` folder, with one file per window — e.g. `window/mainWindow.ts`, `window/settingsWindow.ts` — each exporting a typed `create*` function. Each window runs its own renderer process and communicates back through IPC in the same way as the main window.
+
+### Database schema migrations
+
+`DatabaseService.migrate()` is called once on app start. It creates all tables idempotently (`CREATE TABLE IF NOT EXISTS`), reads `schema_version` from the `meta` table, and runs only the migration blocks whose number is higher than the stored version. To add a schema change: bump `SCHEMA_VERSION`, add an `if (current < N)` block with the DDL, and write the new version to `meta`. Never modify existing migration blocks — they have already run on live databases.
+
+---
+
 ## Known issues
 
 ### `npm ci --prefix angular` fails in Linux CI
