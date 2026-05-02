@@ -1,9 +1,10 @@
-name: Unit tests + patch bump
+name: Run Unit tests on commit
 
 on:
   push:
     branches-ignore:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -26,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Install Angular dependencies
-        run: npm ci --prefix angular
+        run: npm install --prefix angular
 
       - name: Install Electron dependencies
         run: npm ci --prefix electron
